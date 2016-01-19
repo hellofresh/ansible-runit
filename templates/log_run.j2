@@ -1,0 +1,6 @@
+#!/bin/sh
+# {{ ansible_managed }}
+
+# Log Command to run
+#
+{{ item.log.run  if item.log is defined and item.log.run is defined else '#' }}

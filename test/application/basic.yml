@@ -1,0 +1,19 @@
+---
+- name         : Basic Mode (1)
+  hosts        : "all"
+  gather_facts : true
+  become       : True
+  connection   : "{{ kitchen_connection | default('local') }}"
+  vars         :
+        runit_services          :
+                        - name  : "Service1"
+                          run   : "echo '1' && sleep 10"
+                          fail  : "command"
+                          log   :
+                            run : "exec svlogd -tt /var/log/Service1"
+
+                        - name  : "Service2"
+                          run   : "sleep 10"
+                          fail  : "command"
+  roles        :
+                 - "ansible-runit"

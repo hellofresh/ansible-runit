@@ -1,2 +1,18 @@
 ---
 # defaults file for runit
+
+runit_cfgdir            : "/etc/sv/"        # path to config directory
+runit_create_log_base   : "/var/log"
+runit_service_dir       : "/etc/service"
+runit_create_log_dir    : True
+
+# runit_services          :
+#                 - name  : "Service1"
+#                   run   : "echo '1' && sleep 10"
+#                   fail  : "command"
+#                   log   :
+#                     run : "exec svlogd -tt /var/log/Service1"
+
+#                 - name  : "Service2"
+#                   run   : "sleep 10"
+#                   fail  : "command"

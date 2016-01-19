@@ -1,6 +1,18 @@
 ---
+
 - name: install runit
-  apt: name=runit state=present
+  apt: 
+    name="runit"
+    state="present"
 
 - name: runsvdir service
-  service: name=runsvdir state=started
+  service: 
+    name="runsvdir"
+    state=started
+
+- name: Prepare config directories
+  file: 
+    state=directory
+    path="{{ item }}"
+  with_items:
+    - "{{ runit }}"

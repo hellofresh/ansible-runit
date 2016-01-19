@@ -1,0 +1,70 @@
+---
+
+- name: service | Create service directories
+  file: 
+    state=directory
+    path="{{ runit_cfgdir }}/{{ item.name }}"
+    owner=root
+    group=root
+    mode=0755
+  with_items:
+    - "{{ runit_services }}"
+
+- name: service | Create service log directories
+  file: 
+    state=directory
+    path="{{ runit_cfgdir }}/{{ item.name }}/log"
+    owner=root
+    group=root
+    mode=0755
+  with_items:
+    - "{{ runit_services }}"
+
+- name: service | Deploy run script
+  template: 
+    src="run.j2"
+    dest="{{ runit_cfgdir }}/{{ item.name }}/run"
+    owner=root
+    group=root
+    mode=0755
+  with_items:
+    - "{{ runit_services }}"
+
+- name: service | Deploy fail script
+  template: 
+    src="run.j2"
+    dest="{{ runit_cfgdir }}/{{ item.name }}/fail"
+    owner=root
+    group=root
+    mode=0755
+  with_items:
+    - "{{ runit_services }}"
+
+- name: service | Deploy run log script
+  template: 
+    src="log_run.j2"
+    dest="{{ runit_cfgdir }}/{{ item.name }}/log/run"
+    owner=root
+    group=root
+    mode="{{ '0755' if item.log is defined and item.log.run is defined else '0644' }}"
+  with_items:
+    - "{{ runit_services }}"
+
+- name: service | Create log runit directory
+  file: 
+    state=directory
+    path="{{ runit_create_log_base }}/{{ item.name }}"
+    owner=root
+    group=root
+    mode=0755
+  with_items:
+    - "{{ runit_services }}"
+  when: "{{ runit_create_log_dir }}"
+
+- name: service | Create service directory
+  file: 
+    src="{{ runit_cfgdir }}/{{ item.name }}"
+    dest="{{ runit_service_dir }}/{{ item.name }}"
+    state=link
+  with_items:
+    - "{{ runit_services }}"
