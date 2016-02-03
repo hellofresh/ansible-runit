@@ -10,9 +10,9 @@
     name="runsvdir"
     state=started
 
-- name: Prepare config directories
-  file: 
-    state=directory
-    path="{{ item }}"
-  with_items:
-    - "{{ runit }}"
+# - name: Prepare config directories
+#   file: 
+#     state=directory
+#     path="{{ item }}"
+#   with_items:
+#     - "{{ runit }}"
