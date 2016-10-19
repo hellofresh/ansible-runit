@@ -1,0 +1,10 @@
+# Configuration for runit's svlogd (http://smarden.org/runit/svlogd.8.html)
+
+# rotate if log file size > s<size> bytes
+{% if item.log.config.size is defined %}
+s{{ item.log.config.size }}
+{% endif %}
+# keep at most n<num> log files
+{% if item.log.config.num is defined %}
+n{{ item.log.config.num }}
+{% endif %}
