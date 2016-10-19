@@ -61,6 +61,17 @@
     - "{{ runit_services }}"
   when: "{{ runit_create_log_dir }}"
 
+- name: service | Create log runit config file
+  template: 
+    src="log_config.j2"
+    dest="{{ runit_create_log_base }}/{{ item.name }}/config"
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+    - "{{ runit_services }}"
+  when: "{{ item.log.config is defined }}"
+
 - name: service | Create service directory
   file: 
     src="{{ runit_cfgdir }}/{{ item.name }}"
