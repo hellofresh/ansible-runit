@@ -7,8 +7,8 @@
 
 - name: runsvdir service
   service: 
-    name="runsvdir"
-    state=started
+    name="{{runit_service_name[ansible_distribution_release] | default('runsvdir') }}"
+    state="started"
 
 # - name: Prepare config directories
 #   file: 

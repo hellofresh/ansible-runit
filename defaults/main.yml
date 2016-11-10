@@ -6,6 +6,9 @@ runit_create_log_base   : "/var/log"
 runit_service_dir       : "/etc/service"
 runit_create_log_dir    : True
 
+runit_service_name:
+  xenial: runit
+
 # runit_services          :
 #                 - name  : "Service1"
 #                   run   : "echo '1' && sleep 10"
